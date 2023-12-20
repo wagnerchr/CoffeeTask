@@ -1,8 +1,7 @@
-﻿using CoffeeTask.Entities;
+﻿using System.Threading.Tasks;
+using CoffeeTask.Entities;
 using CoffeeTask.Repositories;
-using CoffeeTask.UseCases.Task.CreateTaskUseCase;
-using Dapper;
-using System.Threading.Tasks;
+using CoffeeTask.UseCases.Task.GetTaskUseCase;
 
 public class TaskRepository : ITaskRepository
 {
@@ -18,5 +17,13 @@ public class TaskRepository : ITaskRepository
         var result = await _dbService.Create(
             "INSERT INTO task (Id, name, description, priority, creationDate, dueDate) VALUES (@Id, @Name, @Description, @Priority, @CreationDate, @DueDate)", task);
         return true;
+    }
+
+    public async Task<TaskEntity?> GetTask(GetTaskInput id)
+    {
+        var task = await _dbService.GetOne<TaskEntity?>(
+            "SELECT * FROM task WHERE id::text = @Id", new { Id = id.Id}
+        );
+        return task;
     }
 }

@@ -24,4 +24,11 @@ public class DbService : IDbService
         int result = await _db.ExecuteAsync(command, parms);
         return result;
     }
+
+    public async Task<T?> GetOne<T>(string command, object parms)
+    {
+        T? result;
+        result = (await _db.QueryAsync<T>(command, parms).ConfigureAwait(false)).FirstOrDefault();
+        return result;
+    }
 }
