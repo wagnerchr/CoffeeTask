@@ -1,6 +1,6 @@
 @CoffeeTask_HostAddress = http://localhost:5166
 
-GET {{CoffeeTask_HostAddress}}/weatherforecast/
+GET {{CoffeeTask_HostAddress}}/coffeetask/
 Accept: application/json
 
 ###
