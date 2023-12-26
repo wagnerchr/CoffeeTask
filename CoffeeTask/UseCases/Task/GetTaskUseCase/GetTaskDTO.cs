@@ -2,7 +2,7 @@
 {
     public class GetTaskInput
     {
-        public required string Id { get; set; }
+        public required Guid Id { get; set; }
     }
 
     public class GetTaskOutput

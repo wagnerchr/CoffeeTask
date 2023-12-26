@@ -14,7 +14,7 @@ namespace CoffeeTask.UseCases.Task.GetTaskUseCase
 
         public async Task<TaskEntity?> GetTask(GetTaskInput id)
         {
-            TaskEntity? task =  await this._taskRepository.GetTask(id);
+            TaskEntity? task =  await this._taskRepository.GetTask(id.Id);
             return task;
         }
     }

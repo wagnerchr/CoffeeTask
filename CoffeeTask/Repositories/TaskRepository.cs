@@ -1,7 +1,5 @@
-﻿using System.Threading.Tasks;
-using CoffeeTask.Entities;
+﻿using CoffeeTask.Entities;
 using CoffeeTask.Repositories;
-using CoffeeTask.UseCases.Task.GetTaskUseCase;
 
 public class TaskRepository : ITaskRepository
 {
@@ -19,11 +17,17 @@ public class TaskRepository : ITaskRepository
         return true;
     }
 
-    public async Task<TaskEntity?> GetTask(GetTaskInput id)
+    public async Task<TaskEntity?> GetTask(Guid id)
     {
         var task = await _dbService.GetOne<TaskEntity?>(
-            "SELECT * FROM task WHERE id::text = @Id", new { Id = id.Id}
-        );
+            "SELECT * FROM task WHERE id = @Id", id);
         return task;
+    }
+
+    public async Task<bool> UpdateTask(TaskEntity task)
+    {
+        var result = await _dbService.Update(
+            "Update task SET task = @task WHERE id = @Id", task);
+        return true;
     }
 }

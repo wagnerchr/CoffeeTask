@@ -4,5 +4,6 @@
     {
         Task<int> Create(string command, object parms);
         Task<T?> GetOne<T>(string command, object parms);
+        Task<int> Update(string command, object parms);
     }
 }

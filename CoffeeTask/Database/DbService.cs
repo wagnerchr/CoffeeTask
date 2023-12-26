@@ -6,10 +6,10 @@ using System.Data;
 public class DbService : IDbService
 {
     private readonly IDbConnection _db;
+
     public DbService(IConfiguration configuration)
     {
-        string? connectionString = configuration.GetConnectionString("SqlConnection");
-        _db = new NpgsqlConnection(connectionString);
+        _db = new NpgsqlConnection(Environment.GetEnvironmentVariable("CONN_STRING"));
     }
 
     public async Task<int> Create(string command, object parms)
@@ -29,6 +29,12 @@ public class DbService : IDbService
     {
         T? result;
         result = (await _db.QueryAsync<T>(command, parms).ConfigureAwait(false)).FirstOrDefault();
+        return result;
+    }
+
+    public async Task<int> Update(string command, object parms)
+    {
+        int result = await _db.ExecuteAsync(command, parms);
         return result;
     }
 }

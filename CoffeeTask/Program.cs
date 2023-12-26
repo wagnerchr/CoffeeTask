@@ -15,6 +15,7 @@ builder.Services.AddSingleton<DbService>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<ICreateTaskUseCase, CreateTaskUseCase>();
 builder.Services.AddScoped<IGetTaskUseCase, GetTaskUseCase>();
+builder.Services.AddScoped<IUpdateTaskUseCase, UpdateTaskUseCase>();
 
 
 var app = builder.Build();

@@ -2,6 +2,7 @@
 using CoffeeTask.UseCases.Task.interfaces;
 using CoffeeTask.UseCases.Task.CreateTaskUseCase;
 using CoffeeTask.UseCases.Task.GetTaskUseCase;
+using CoffeeTask.UseCases.Task.UpdateTaskUseCase;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -9,12 +10,16 @@ public class TaskController : ControllerBase
 {
     private readonly ICreateTaskUseCase _createTaskUseCase;
     private readonly IGetTaskUseCase _getTaskUseCase;
+    private readonly IUpdateTaskUseCase _updateTaskUseCase;
+
     public TaskController(
         ICreateTaskUseCase createTaskUseCase,
-        IGetTaskUseCase getTaskUseCase)
+        IGetTaskUseCase getTaskUseCase,
+        IUpdateTaskUseCase updateTaskUseCase)
     {
         _createTaskUseCase = createTaskUseCase;
         _getTaskUseCase = getTaskUseCase;
+        _updateTaskUseCase = updateTaskUseCase;
     }
 
     [HttpPost]
@@ -24,11 +29,17 @@ public class TaskController : ControllerBase
         return Ok("Tarefa criada com sucesso!");
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetTask(string id)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetTask(GetTaskInput id)
     {
-        var taskInput = new GetTaskInput { Id = id};
-        var result = await _getTaskUseCase.GetTask(taskInput);
+        var result = await _getTaskUseCase.GetTask(id);
+        return Ok(result);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateTask(string id, [FromBody] UpdateTaskInput task)
+    {
+        var result = await _updateTaskUseCase.UpdateTask(id, task);
         return Ok(result);
     }
 }
