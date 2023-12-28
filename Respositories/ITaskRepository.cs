@@ -6,6 +6,7 @@ namespace CoffeeTask.Repositories
     {
         public Task<bool> CreateTask(TaskEntity task);
         public Task<TaskEntity?> GetTask(Guid id);
-        public Task<bool> UpdateTask(TaskEntity task);
+        public Task<List<TaskEntity?>> GetAllTasks();
+        public Task<TaskEntity?> UpdateTask(TaskEntity task);
     }
 }

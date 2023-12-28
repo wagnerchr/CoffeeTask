@@ -13,16 +13,17 @@ namespace CoffeeTask.UseCases.Task.GetTaskUseCase
             _taskRepository = taskRepository;
         }
 
-        public async Task<bool> UpdateTask(string id, UpdateTaskInput task)
+        public async Task<TaskEntity?> UpdateTask(string id, UpdateTaskInput task)
         {
-            Guid taskId = Guid.NewGuid();
             TaskEntity newTask = new TaskEntity();
-            newTask.Id = taskId;
+            newTask.Id = new Guid(id);
             newTask.Name = task.Name;
             newTask.Description = task.Description;
+            newTask.Priority = task.Priority;
+            newTask.DueDate = DateTime.UtcNow; ;
 
-            await this._taskRepository.UpdateTask(newTask);
-            return true;
+            TaskEntity? response = await this._taskRepository.UpdateTask(newTask);
+            return response;
         }
     }
 }

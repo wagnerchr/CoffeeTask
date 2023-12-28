@@ -15,8 +15,12 @@ namespace CoffeeTask.UseCases.Task.interfaces
         Task<TaskEntity?> GetTask(GetTaskInput id);
     }
 
+    public interface IGetAllTasksUseCase
+    {
+        Task<List<TaskEntity?>> GetAllTasks();
+    }
     public interface IUpdateTaskUseCase
     {
-        Task<bool> UpdateTask(string id, UpdateTaskInput task);
+        Task<TaskEntity?> UpdateTask(string id, UpdateTaskInput task);
     }
 }

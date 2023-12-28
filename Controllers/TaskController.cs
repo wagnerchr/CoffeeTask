@@ -10,15 +10,18 @@ public class TaskController : ControllerBase
 {
     private readonly ICreateTaskUseCase _createTaskUseCase;
     private readonly IGetTaskUseCase _getTaskUseCase;
+    private readonly IGetAllTasksUseCase _getAllTasksUseCase;
     private readonly IUpdateTaskUseCase _updateTaskUseCase;
 
     public TaskController(
         ICreateTaskUseCase createTaskUseCase,
         IGetTaskUseCase getTaskUseCase,
+        IGetAllTasksUseCase getAllTasksUseCase,
         IUpdateTaskUseCase updateTaskUseCase)
     {
         _createTaskUseCase = createTaskUseCase;
         _getTaskUseCase = getTaskUseCase;
+        _getAllTasksUseCase = getAllTasksUseCase;
         _updateTaskUseCase = updateTaskUseCase;
     }
 
@@ -36,8 +39,15 @@ public class TaskController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetAllTasks()
+    {
+        var result = await _getAllTasksUseCase.GetAllTasks();
+        return Ok(result);
+    }
+
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateTask(string id, [FromBody] UpdateTaskInput task)
+    public async Task<IActionResult> UpdateTask(string id, [FromBody]UpdateTaskInput task)
     {
         var result = await _updateTaskUseCase.UpdateTask(id, task);
         return Ok(result);

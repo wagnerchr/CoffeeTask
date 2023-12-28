@@ -32,9 +32,17 @@ public class DbService : IDbService
         return result;
     }
 
+    public async Task<List<T?>> GetAll<T>(string command)
+    {
+        List<T?> result = new List<T?>();
+        result = (await _db.QueryAsync<T?>(command)).ToList();
+        return result;
+    }
+
     public async Task<int> Update(string command, object parms)
     {
-        int result = await _db.ExecuteAsync(command, parms);
+        int result;
+        result = await _db.ExecuteAsync(command, parms);
         return result;
     }
 }

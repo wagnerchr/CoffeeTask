@@ -16,7 +16,7 @@ public class TaskRepository : ITaskRepository
             "INSERT INTO task (Id, name, description, priority, creationDate, dueDate) VALUES (@Id, @Name, @Description, @Priority, @CreationDate, @DueDate)", task);
         return true;
     }
-
+    
     public async Task<TaskEntity?> GetTask(Guid id)
     {
         var task = await _dbService.GetOne<TaskEntity?>(
@@ -24,10 +24,17 @@ public class TaskRepository : ITaskRepository
         return task;
     }
 
-    public async Task<bool> UpdateTask(TaskEntity task)
+    public async Task<List<TaskEntity?>> GetAllTasks()
+    {
+        List<TaskEntity?> tasks = await _dbService.GetAll<TaskEntity?>(
+            "SELECT * FROM task");
+        return tasks;
+    }
+
+    public async Task<TaskEntity?> UpdateTask(TaskEntity task)
     {
         var result = await _dbService.Update(
-            "Update task SET task = @task WHERE id = @Id", task);
-        return true;
+            "UPDATE public.task SET name=@Name, description=@Description, priority=@Priority, dueDate=@DueDate WHERE id=@Id", task);
+        return task;
     }
 }

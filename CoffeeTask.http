@@ -1,6 +1,6 @@
-@CoffeeTask_HostAddress = http://localhost:5166
+@CoffeeTask_HostAddress = http://localhost:5273
 
-GET {{CoffeeTask_HostAddress}}/coffeetask/
+GET {{CoffeeTask_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

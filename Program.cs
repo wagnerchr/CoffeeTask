@@ -1,5 +1,6 @@
 using CoffeeTask.Repositories;
 using CoffeeTask.UseCases.Task.CreateTaskUseCase;
+using CoffeeTask.UseCases.Task.GetAllTasksUseCase;
 using CoffeeTask.UseCases.Task.GetTaskUseCase;
 using CoffeeTask.UseCases.Task.interfaces;
 
@@ -15,6 +16,7 @@ builder.Services.AddSingleton<DbService>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<ICreateTaskUseCase, CreateTaskUseCase>();
 builder.Services.AddScoped<IGetTaskUseCase, GetTaskUseCase>();
+builder.Services.AddScoped<IGetAllTasksUseCase, GetAllTasksUseCase>();
 builder.Services.AddScoped<IUpdateTaskUseCase, UpdateTaskUseCase>();
 
 
